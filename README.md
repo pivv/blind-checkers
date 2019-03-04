@@ -4,11 +4,12 @@ This repository is related to the final project of Computational Modeling class 
 
 ## Introduction
 
+[https://en.wikipedia.org/wiki/Draughts](https://en.wikipedia.org/wiki/Draughts)
 The Blind Checkers is a variation of the Checkers. It is almost similar to international Checkers, except you cannot see all of your opponents. More precisely, each piece in Blind Checkers has own field of view, and you cannot see anything out of sight. Therefore, not only catching opponent pieces but securing a broad view will be an important strategy.
 
 ## Rules
 
-You can adjust all of the detailed rules of the game by modifying the constants.
+You can adjust all of the detailed rules by modifying the constants.
 
 * 10x10 Checkers board
 * Two spaces of view for both men and kings (It means that 5x5 box centered at each piece is visible.)
