@@ -1,6 +1,6 @@
 # Blind Checkers
 
-**This repository is related to the term project of Computational Modeling class in Seoul National University.** The goal of the project is to create an artificial intelligence of "Blind Checkers" to be explained. Anyone who does not attend the class can also enjoy Blind Checkers through this repository.
+**This repository is related to the term project of Computational Modeling class in Seoul National University.** The goal of the project is to create an artificial intelligence of **Blind Checkers** to be explained. Anyone who does not attend the class can also enjoy Blind Checkers through this repository.
 
 ## Introduction
 
