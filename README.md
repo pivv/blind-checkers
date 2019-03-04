@@ -32,6 +32,13 @@ This repository is based on [OpenAI Gym](https://github.com/openai/gym), and the
 * step(self, action): Step the environment by one timestep. Returns next player, observation, legal moves, reward, done, and info.
 * render(self): Render one frame of the environment.
 
+When initializing the ``Checkers`` object, you can select whether to visualize the board to human-friendly UI. You can choose from four ways to visualize.
+
+* "dark": You can show only dark sides. (When you play yourself at dark side, be sure to use this option.)
+* "light": You can show only light sides. (When you play yourself at light side, be sure to use this option.)
+* "both": You can show both sides with limited view alternatively. (Implemented for pvp mode.)
+* "no-blind": You can show all of the board. (Observer mode, used to watch the battle between AIs.)
+
 ```python
 from blind_checkers.rule import Rule
 from blind_checkers.board import Board
@@ -96,7 +103,11 @@ Each agent plays the Checkers game. In this repository three types of basic agen
 * RandomAgent is the agent that performs randomly among the available actions.
 * GreedyAgent is the simple AI that first assumes that there are no pieces in blind reasons, then performs a Monte-Carlo simulation for each available actions (by using RandomAgent), and finally chooses the action with best reward.
 
-You can also create your own agent and compete it with existing agents. Especially using deep reinforcement learning to create agents is the goal of the term project. 
+You can also create your own agent and compete it with existing agents. Especially using deep reinforcement learning to create agents is the goal of the term project.
+
+## Resource
+
+You can use your own images for Checkers board or pieces by put them in the resource folder.
 
 ## References
 
