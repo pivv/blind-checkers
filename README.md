@@ -29,31 +29,30 @@ The implementation is done with pygame, so you should install pygame to
 This 
 
 ```python
-from blind_checkers.constants import *
 from blind_checkers.rule import Rule
 from blind_checkers.board import Board
 from blind_checkers.graphics import Graphics
 from blind_checkers.game import Checkers
 
-from blind_checkers.agents.Random.agent import *
-from blind_checkers.agents.Greedy.agent import *
-from blind_checkers.agents.Human.agent import *
+from blind_checkers.agents.Random.agent import RandomAgent
+from blind_checkers.agents.Greedy.agent import GreedyAgent
+from blind_checkers.agents.Human.agent import HumanAgent
 
 # Set rules.
 rule = Rule({
-    'board_size': BOARD_SIZE,
-    'sight': SIGHT,
-    'king_sight': KING_SIGHT,
-    'king_range': KING_RANGE,
-    'force_catch': FORCE_CATCH,
-    'backward_catch': BACKWARD_CATCH
+    'board_size': 10,
+    'sight': 2,
+    'king_sight': 2,
+    'king_range': 2,
+    'force_catch': True,
+    'backward_catch': True
     })
 
 # Load graphics.
 graphics = Graphics(rule)
 
 agent_dark = GreedyAgent(1, rule)
-agent_light = HumanAgent(-1, rule, graphics)
+agent_light = HumanAgent(-1, rule, graphics) # Human agent needs graphics.
 
 # Main loop.
 env = Checkers(rule, graphics=graphics, visualize=True, visualize_type='light')
