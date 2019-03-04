@@ -1,6 +1,6 @@
 # Blind Checkers
 
-This repository is related to the final project of Computational Modeling class in Seoul National University. The goal of the project is to create an artificial intelligence of "Blind Checkers" to be explained. Anyone who does not attend the class can also play Blind Checkers through this repository.
+This repository is related to the term project of Computational Modeling class in Seoul National University. The goal of the project is to create an artificial intelligence of "Blind Checkers" to be explained. Anyone who does not attend the class can also play Blind Checkers through this repository.
 
 ## Introduction
 
@@ -32,4 +32,8 @@ This
 
 Each agent plays the Checkers game. In this repository three types of basic agents are provided: HumanAgent, RandomAgent, GreedyAgent.
 
-* HumanAgent is 
+* HumanAgent is the agent that leaves choice to a person. This agent is not limited in ability!
+* RandomAgent is the agent that performs randomly among the available actions.
+* GreedyAgent is the simple AI that first assumes that there are no pieces in blind reasons, then performs a Monte-Carlo simulation for each available actions (by using RandomAgent), and finally chooses the action with best reward.
+
+You can also create your own agent and compete it with existing agents. Especially using deep reinforcement learning to create agents is the goal of the term project. 
