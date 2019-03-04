@@ -20,6 +20,16 @@ You can adjust all of the detailed rules by modifying the constants.
 
 In practice, flying kings are too strong in Blind Checkers. Also, for easy implementation, any captured pieces are removed from the board immediately, unlike the international rules in which removal is done after one turn is over.
 
-## Install
+## Usage
 
 The implementation is done with pygame, so you should install pygame to 
+
+## Environment
+
+This 
+
+## Agents
+
+Each agent plays the Checkers game. In this repository three types of basic agents are provided: HumanAgent, RandomAgent, GreedyAgent.
+
+* HumanAgent is 
