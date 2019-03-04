@@ -97,3 +97,7 @@ Each agent plays the Checkers game. In this repository three types of basic agen
 * GreedyAgent is the simple AI that first assumes that there are no pieces in blind reasons, then performs a Monte-Carlo simulation for each available actions (by using RandomAgent), and finally chooses the action with best reward.
 
 You can also create your own agent and compete it with existing agents. Especially using deep reinforcement learning to create agents is the goal of the term project. 
+
+## References
+
+Much of this repository have been referred to [OpenAI Gym](https://github.com/openai/gym), [Seoul AI Gym](https://github.com/seoulai/gym), and [Pygame-Checkers](https://github.com/everestwitman/Pygame-Checkers).
