@@ -18,7 +18,7 @@ You can adjust all of the detailed rules by modifying the constants.
 * Mandatory capture if possible
 * Men can capture backwards
 
-In practice, the attack range of kings is limited since flying kings are too strong in Blind Checkers. Also, for easy implementation, any captured pieces are removed from the board immediately, unlike the international rules in which removal is done after one turn is over. Finally, since you cannot see all board in Blind Checkers, "threefold repetition" rule is excluded. The "fourty-move" rule is implemented.
+In practice, the attack range of kings is limited since flying kings are too strong in Blind Checkers. Also, for easy implementation, any captured pieces are removed from the board immediately, unlike the international rules in which removal is done after one turn is over. Finally, since you cannot see all board in Blind Checkers, the "threefold repetition" rule is excluded. The "fourty-move" rule is implemented.
 
 ## Usage
 
@@ -26,7 +26,7 @@ The implementation is done with pygame, so you should install pygame to
 
 ## Environment
 
-This 
+This repository is based on [OpenAI Gym](https://github.com/openai/gym)
 
 ```python
 from blind_checkers.rule import Rule
