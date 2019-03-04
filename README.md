@@ -31,6 +31,7 @@ This repository is based on [OpenAI Gym](https://github.com/openai/gym), and the
 * reset(self): Reset the environment's state. Returns next player, observation, legal moves, and info.
 * step(self, action): Step the environment by one timestep. Returns next player, observation, legal moves, reward, done, and info.
 * render(self): Render one frame of the environment.
+* print(self, font_size, color): Print the message to the screen. If visualize is set to False, this function just uses built-in ``print()`` function.
 
 When initializing the ``Checkers`` object, you can select whether to visualize the board to human-friendly UI. You can choose from four ways to visualize.
 
