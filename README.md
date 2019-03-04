@@ -8,7 +8,7 @@
 
 The Blind Checkers is a variation of the Checkers. It is almost similar to international Checkers, except you cannot see all of your opponents. More precisely, each piece in Blind Checkers has own field of view, and you cannot see anything out of sight. Therefore, not only capturing opponent pieces but securing a broad view will be an important strategy.
 
-![](https://github.com/pivv/blind-checkers/blob/master/images/blind_checkers.PNG | width=100)
+![alt text](https://github.com/pivv/blind-checkers/blob/master/images/blind_checkers.PNG)
 
 ## Rules
 
