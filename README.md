@@ -119,7 +119,7 @@ You can also create your own agent and compete it with existing agents. Especial
 
 ## Resource
 
-You can use your own images for Checkers board or pieces by put them in the resource folder.
+You can use your own images for Checkers board or pieces by put them in the ``"blind_checkers/resource"`` folder.
 
 ## References
 
