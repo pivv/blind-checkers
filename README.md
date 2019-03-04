@@ -37,7 +37,9 @@ When initializing the ``Checkers`` object, you can select whether to visualize t
 * "dark": You can show only dark sides. (When you play yourself at dark side, be sure to use this option.)
 * "light": You can show only light sides. (When you play yourself at light side, be sure to use this option.)
 * "both": You can show both sides with limited view alternatively. (Implemented for pvp mode.)
-* "no-blind": You can show all of the board. (Observer mode, used to watch the battle between AIs.)
+* "no-blind": You can show all of the board. (Observer mode, watch the battle between AIs!)
+
+The following code is an example of a match between person and AI.
 
 ```python
 from blind_checkers.rule import Rule
@@ -94,6 +96,8 @@ while not env_done:
 
 env.close()
 ```
+
+The observation of 
 
 ## Agents
 
