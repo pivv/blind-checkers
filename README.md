@@ -8,7 +8,7 @@
 
 The Blind Checkers is a variation of the Checkers. It is almost similar to international Checkers, except you cannot see all of your opponents. More precisely, each piece in Blind Checkers has own field of view, and you cannot see anything out of sight. Therefore, not only capturing opponent pieces but securing a broad view will be an important strategy.
 
-![alt text](https://github.com/pivv/blind-checkers/blob/master/images/blind_checkers.PNG)
+![](https://github.com/pivv/blind-checkers/blob/master/images/blind_checkers.PNG | width=100)
 
 ## Rules
 
@@ -24,7 +24,7 @@ In practice, the attack range of kings is limited since flying kings are too str
 
 ## Usage
 
-The implementation is done with [pygame](https://www.pygame.org/news), so you should install pygame first. Then download the project, and do ``python blind_checkers.py`` to start the game. Currently no installation is provided, and you can test with various rules or AIs by adjusting ``"blind_checkers/constants.py"``.
+The implementation is done with [pygame](https://www.pygame.org), so you should install pygame first. Then download the project, and do ``python blind_checkers.py`` to start the game. Currently no installation is provided, and you can test with various rules or AIs by adjusting ``"blind_checkers/constants.py"``.
 
 ## Environment
 
