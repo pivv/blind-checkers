@@ -26,7 +26,7 @@ The implementation is done with [pygame](https://www.pygame.org/news), so you sh
 
 ## Environment
 
-This repository is based on [OpenAI Gym](https://github.com/openai/gym), and the main ``Checkers`` object plays the role of environment. It has similar functions as in [OpenAI Gym](https://github.com/openai/gym), except for some differences.
+This repository is based on [OpenAI Gym](https://github.com/openai/gym), and the main [Checkers](https://github.com/pivv/blind-checkers/blob/master/blind_checkers/game.py) object plays the role of environment. It has similar functions as in [OpenAI Gym](https://github.com/openai/gym), except for some differences.
 
 * ``reset(self)``: Reset the environment's state. Returns next player, observation, legal moves, and info.
 * ``step(self, action)``: Step the environment by one timestep. Returns next player, observation, legal moves, reward, done, and info.
@@ -109,7 +109,7 @@ env.close()
 
 ## Agents
 
-Each agent plays the Checkers game. In this repository three types of basic agents are provided: ``HumanAgent``, ``RandomAgent``, ``GreedyAgent``.
+Each agent plays the Checkers game. In this repository three types of basic agents are provided: [HumanAgent](https://github.com/pivv/blind-checkers/blob/master/blind_checkers/agents/Human/agent.py), [RandomAgent](https://github.com/pivv/blind-checkers/blob/master/blind_checkers/agents/Random/agent.py), and [GreedyAgent](https://github.com/pivv/blind-checkers/blob/master/blind_checkers/agents/Greedy/agent.py).
 
 * ``HumanAgent`` is the agent that leaves choice to a person. This agent is not limited in ability!
 * ``RandomAgent`` is the agent that performs randomly among the available actions.
