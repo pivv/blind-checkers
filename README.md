@@ -22,7 +22,7 @@ In practice, the attack range of kings is limited since flying kings are too str
 
 ## Usage
 
-The implementation is done with pygame, so you should install pygame first. Then download the project, and do ``python blind_checkers.py`` to start the game. Currently no installation is provided, and you can test with various rules or AIs by adjusting ``"blind_checkers/constants.py"``.
+The implementation is done with [pygame](https://www.pygame.org/news), so you should install pygame first. Then download the project, and do ``python blind_checkers.py`` to start the game. Currently no installation is provided, and you can test with various rules or AIs by adjusting ``"blind_checkers/constants.py"``.
 
 ## Environment
 
