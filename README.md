@@ -1,4 +1,4 @@
-# blind-checkers
+# Blind Checkers
 
 Not uploaded yet.
 
