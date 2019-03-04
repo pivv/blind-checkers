@@ -35,10 +35,10 @@ This repository is based on [OpenAI Gym](https://github.com/openai/gym), and the
 
 When initializing the ``Checkers`` object, you can select whether to visualize the board to human-friendly UI. You can choose from four ways to visualize.
 
-* "dark": You can show only dark sides. (When you play yourself at dark side, be sure to use this option.)
-* "light": You can show only light sides. (When you play yourself at light side, be sure to use this option.)
-* "both": You can show both sides with limited view alternatively. (Implemented for pvp mode.)
-* "no-blind": You can show all of the board. (Observer mode, watch the battle between AIs!)
+* ``"dark"``: You can show only dark sides. (When you play yourself at dark side, be sure to use this option.)
+* ``"light"``: You can show only light sides. (When you play yourself at light side, be sure to use this option.)
+* ``"both"``: You can show both sides with limited view alternatively. (Implemented for pvp mode.)
+* ``"no-blind"``: You can show all of the board. (Observer mode, watch the battle between AIs!)
 
 The following code is an example of a match between person and AI.
 
@@ -98,15 +98,19 @@ while done == 0:
 env.close()
 ```
 
-``step`` function gets ``action`` of form ``(from_pos, to_pos)`` where ``from_pos`` is a location of current piece, and ``to_pos`` is a destination to go. returns  ``obs``, 
+``step`` function gets ``action`` of form ``(from_pos, to_pos)`` where ``from_pos`` is a location of current piece, and ``to_pos`` is a destination to go. Then the function returns six variables: ``player``, ``obs``, ``moves``, ``rew``, ``done``, ``info``.
+
+* ``player`` is the next player to play. It may same to previous player!
+* ``obs`` is the current observation of Checkers board to ``player``. It is in the form of 2D numpy array. In default, ``0`` is for empty space, ``1``(``-1``) is for dark(light) man, ``2``(``-2``) is for dark(light) king, and ``3`` is for an invisible space.
+* ``moves`` is the collection of all legal moves. It is a ``list`` of ``(from_pos, legal_moves)`` where ``legal_moves`` is again a ``list`` of multiple ``to_pos`` which is valid to arrive on departure from ``from_pos``. So, you should choose ``action`` among ``moves``.
 
 ## Agents
 
-Each agent plays the Checkers game. In this repository three types of basic agents are provided: HumanAgent, RandomAgent, GreedyAgent.
+Each agent plays the Checkers game. In this repository three types of basic agents are provided: ``HumanAgent``, ``RandomAgent``, ``GreedyAgent``.
 
 * ``HumanAgent`` is the agent that leaves choice to a person. This agent is not limited in ability!
 * ``RandomAgent`` is the agent that performs randomly among the available actions.
-* ``GreedyAgent`` is the simple AI that first assumes that there are no pieces in blind reasons, then performs a Monte-Carlo simulation for each available actions (by using RandomAgent), and finally chooses the action with best reward.
+* ``GreedyAgent`` is the simple AI that first assumes that there are no pieces in blind reasons, then performs a Monte-Carlo simulation for each available actions (by using ``RandomAgent``), and finally chooses the action with best reward.
 
 You can also create your own agent and compete it with existing agents. Especially using deep reinforcement learning to create agents is the goal of the term project.
 
