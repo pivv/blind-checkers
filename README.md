@@ -16,7 +16,7 @@ You can adjust all of the detailed rules by modifying the constants.
 * Two spaces of view for both men and kings (It means that 5x5 box centered at each piece is visible.)
 * Two spaces of attack range for kings (1 corresponds to no flying kings rule, and 9 corresponds to flying kings rule.)
 * Mandatory capture if possible
-* men can capture backwards
+* Men can capture backwards
 
 In practice, flying kings are too strong in Blind Checkers. Also, for easy implementation, any captured pieces are removed from the board immediately, unlike the international rules in which removal is done after one turn is over.
 
@@ -27,6 +27,63 @@ The implementation is done with pygame, so you should install pygame to
 ## Environment
 
 This 
+
+```python
+from blind_checkers.constants import *
+from blind_checkers.rule import Rule
+from blind_checkers.board import Board
+from blind_checkers.graphics import Graphics
+from blind_checkers.game import Checkers
+
+from blind_checkers.agents.Random.agent import *
+from blind_checkers.agents.Greedy.agent import *
+from blind_checkers.agents.Human.agent import *
+
+# Set rules.
+rule = Rule({
+    'board_size': BOARD_SIZE,
+    'sight': SIGHT,
+    'king_sight': KING_SIGHT,
+    'king_range': KING_RANGE,
+    'force_catch': FORCE_CATCH,
+    'backward_catch': BACKWARD_CATCH
+    })
+
+# Load graphics.
+graphics = Graphics(rule)
+
+agent_dark = GreedyAgent(1, rule)
+agent_light = HumanAgent(-1, rule, graphics)
+
+# Main loop.
+env = Checkers(rule, graphics=graphics, visualize=True, visualize_type='light')
+
+player, obs, moves, info = env.reset()
+env.print("Game Start", font_size=72)
+env_done = False
+
+while not env_done:
+    if player == 1:
+        current_agent = agent_dark
+    else:
+        assert(player == -1)
+        current_agent = agent_light
+
+    action = current_agent.act(obs, moves, info)
+    player, obs, moves, rew, env_done, info = env.step(action)
+    current_agent.consume(rew)
+
+    env.render()
+
+    if env_done > 0: # game is ended.
+        if env_done == 2: # draw
+            env.print("Draw", font_size=72)
+        else:
+            assert(env_done == 1)
+            env.print("{} Win".format(current_agent), font_size=56)
+
+env.close()
+```
 
 ## Agents
 
