@@ -18,7 +18,7 @@ You can adjust all of the detailed rules by modifying the constants.
 * Mandatory capture if possible
 * Men can capture backwards
 
-In practice, the attack range of kings is limited since flying kings are too strong in Blind Checkers. Also, for easy implementation, any captured pieces are removed from the board immediately, unlike the international rules in which removal is done after one turn is over. Finally, since you cannot see all board in Blind Checkers, the "threefold repetition" rule is excluded. The "fourty-move" rule is implemented.
+In practice, the attack range of kings is limited since flying kings are too strong in Blind Checkers. Also, for easy implementation, any captured pieces are removed from the board immediately, unlike the international rules in which removal is done after one turn is over. Finally, since you cannot see all board in Blind Checkers, the "threefold repetition" rule is excluded. The "fourty-move" rule is implemented, but as you may not know opponent's promotion, a draw is declared if there was no capture during last fourty moves for both players.
 
 ## Usage
 
@@ -100,9 +100,12 @@ env.close()
 
 ``step`` function gets ``action`` of form ``(from_pos, to_pos)`` where ``from_pos`` is a location of current piece, and ``to_pos`` is a destination to go. Then the function returns six variables: ``player``, ``obs``, ``moves``, ``rew``, ``done``, ``info``.
 
-* ``player`` is the next player to play. It may same to previous player!
+* ``player`` is the next player to play: ``1`` means dark side, and ``-1`` means light side. It may same to previous ``player``!
 * ``obs`` is the current observation of Checkers board to ``player``. It is in the form of 2D numpy array. In default, ``0`` is for empty space, ``1``(``-1``) is for dark(light) man, ``2``(``-2``) is for dark(light) king, and ``3`` is for an invisible space.
 * ``moves`` is the collection of all legal moves. It is a ``list`` of ``(from_pos, legal_moves)`` where ``legal_moves`` is again a ``list`` of multiple ``to_pos`` which is valid to arrive on departure from ``from_pos``. So, you should choose ``action`` among ``moves``.
+* ``rew`` contains the information related to reward during last movement. ``rew["capture_man"]``(``rew["capture_king"]``) stores whether you captured opponent man(king) in last move, ``rew["promotion"]`` stores whether your uncrowned piece promoted to king in last move, and ``rew["win"]``(``rew["draw"]``) stores whether the game is ended with your victory(draw). You can use this to create your own reward. (For example, see ``GreedyAgent``.)
+* ``done`` let you know whether the game is over. ``0`` means game is not over yet, ``1`` means ``player`` wins, and ``2`` means draw.
+* ``info`` contains additional information of the game. ``info["prev-obs"]`` contains the previous observations during opponent's turn. ``info["move-count"]`` contains the count of previous moves without capture and promotion. If this count reach to 80, It becomes draw.
 
 ## Agents
 
