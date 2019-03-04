@@ -28,10 +28,10 @@ The implementation is done with pygame, so you should install pygame to
 
 This repository is based on [OpenAI Gym](https://github.com/openai/gym), and the main ``Checkers`` object plays the role of environment. It has similar functions as in [OpenAI Gym](https://github.com/openai/gym), except for some differences.
 
-* reset(self): Reset the environment's state. Returns next player, observation, legal moves, and info.
-* step(self, action): Step the environment by one timestep. Returns next player, observation, legal moves, reward, done, and info.
-* render(self): Render one frame of the environment.
-* print(self, font_size, color): Print the message to the screen. If visualize is set to False, this function just uses built-in ``print()`` function.
+* ``reset(self)``: Reset the environment's state. Returns next player, observation, legal moves, and info.
+* ``step(self, action)``: Step the environment by one timestep. Returns next player, observation, legal moves, reward, done, and info.
+* ``render(self)``: Render one frame of the environment.
+* ``print(self, font_size, color)``: Print the message to the screen. If visualize is set to False, this function just uses built-in ``print()`` function.
 
 When initializing the ``Checkers`` object, you can select whether to visualize the board to human-friendly UI. You can choose from four ways to visualize.
 
@@ -73,9 +73,9 @@ env = Checkers(rule, graphics=graphics, visualize=True, visualize_type='light')
 
 player, obs, moves, info = env.reset()
 env.print("Game Start", font_size=72)
-env_done = False
+done = 0
 
-while not env_done:
+while done == 0:
     if player == 1:
         current_agent = agent_dark
     else:
@@ -83,30 +83,30 @@ while not env_done:
         current_agent = agent_light
 
     action = current_agent.act(obs, moves, info)
-    player, obs, moves, rew, env_done, info = env.step(action)
+    player, obs, moves, rew, done, info = env.step(action)
     current_agent.consume(rew)
 
     env.render()
 
-    if env_done > 0: # game is ended.
-        if env_done == 2: # draw
+    if done > 0: # game is ended.
+        if done == 2: # draw
             env.print("Draw", font_size=72)
         else:
-            assert(env_done == 1)
+            assert(done == 1)
             env.print("{} Win".format(current_agent), font_size=56)
 
 env.close()
 ```
 
-The observation of 
+``step`` function gets ``action`` of form ``(from_pos, to_pos)`` where ``from_pos`` is a location of current piece, and ``to_pos`` is a destination to go. returns  ``obs``, 
 
 ## Agents
 
 Each agent plays the Checkers game. In this repository three types of basic agents are provided: HumanAgent, RandomAgent, GreedyAgent.
 
-* HumanAgent is the agent that leaves choice to a person. This agent is not limited in ability!
-* RandomAgent is the agent that performs randomly among the available actions.
-* GreedyAgent is the simple AI that first assumes that there are no pieces in blind reasons, then performs a Monte-Carlo simulation for each available actions (by using RandomAgent), and finally chooses the action with best reward.
+* ``HumanAgent`` is the agent that leaves choice to a person. This agent is not limited in ability!
+* ``RandomAgent`` is the agent that performs randomly among the available actions.
+* ``GreedyAgent`` is the simple AI that first assumes that there are no pieces in blind reasons, then performs a Monte-Carlo simulation for each available actions (by using RandomAgent), and finally chooses the action with best reward.
 
 You can also create your own agent and compete it with existing agents. Especially using deep reinforcement learning to create agents is the goal of the term project.
 
