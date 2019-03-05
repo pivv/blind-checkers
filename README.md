@@ -121,7 +121,7 @@ You can also create your own agent and compete it with existing agents. Especial
 
 ## Resources
 
-You can use your own images for Checkers board or pieces by put them into the ``"blind_checkers/resources/"`` folder.
+You can use your own images for Checkers board or pieces by put them into the ``"blind_checkers/resources/"`` folder. As an example, icons purchased from [iconfinder](https://www.iconfinder.com/icons/3813566/boardgames_checkers_draughts_games_king_crown_king_piece_monopoly_icon) are used as pieces.
 
 <img src="https://github.com/pivv/blind-checkers/blob/master/images/blind_checkers_icon.PNG" width="500">
 
