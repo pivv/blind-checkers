@@ -33,15 +33,15 @@ class GreedyAgent(Agent):
     def compute_reward(self, last_player, rew):
         r = 0.
         if self.player == last_player:
-            r += float(rew['capture_man']) * 1.
-            r += float(rew['capture_king']) * 5.
+            r += float(rew['capture-man']) * 1.
+            r += float(rew['capture-king']) * 5.
             r += float(rew['promotion']) * 3.
             r += float(rew['win']) * 100.
             r += float(rew['draw']) * 0.  # no point for draw
         else:
             assert(self.player == -last_player)
-            r -= float(rew['capture_man']) * 1.
-            r -= float(rew['capture_king']) * 5.
+            r -= float(rew['capture-man']) * 1.
+            r -= float(rew['capture-king']) * 5.
             r -= float(rew['promotion']) * 3.
             r -= float(rew['win']) * 100.
             r -= float(rew['draw']) * 0.  # no point for draw
