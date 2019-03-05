@@ -16,11 +16,11 @@ You can adjust all of the detailed rules by modifying the constants.
 
 * 10x10 Checkers board
 * Two spaces of view for both men and kings (It means that 5x5 box centered at each piece is visible.)
-* Three spaces of attack range for kings (You can view attack range of king. 1 corresponds to no flying kings rule, and 9 corresponds to flying kings rule.)
+* Three spaces of attack range for kings (You have additional view for attack range. 1 corresponds to no flying kings rule, and 9 corresponds to flying kings rule.)
 * Mandatory capture if possible
 * Men can capture backwards
 
-In practice, the attack range of kings is limited since flying kings are too strong in Blind Checkers. As in international rules, removal of captured pices is done after one turn is all over. But unlike international rules, you can choose any sequence of capture since you cannot see all path before capturing. Finally, since you cannot see all board in Blind Checkers, the "threefold repetition" rule is excluded. The "fourty-move" rule is implemented, but as you may not know opponent's promotion, a draw is declared if there was no capture during last fourty moves for both players.
+In practice, the attack range of kings is limited since flying kings are too strong in Blind Checkers. As in the international rules, removal of captured pices is done after one turn is all over. But unlike the international rules, you can choose any sequence of capture since you cannot see all path before capturing. Finally, since you cannot see all board in Blind Checkers, the "threefold repetition" rule is excluded. The "fourty-move" rule is implemented, but as you may not know opponent's promotion, a draw is declared if there was no capture during last fourty moves for both players.
 
 ## Usage
 
