@@ -181,13 +181,13 @@ class Checkers(object):
     def print(self, message, font_size=None, color=None):
         if self.visualize:
             self.graphics.draw_message(message, font_size, color)
+            start_time = time.time()
+            elapsed_time = 0.
+            while elapsed_time < self.print_time:
+                self.event_loop()
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+            self.visualize_time = time.time()
         else:
             print(message)
-        start_time = time.time()
-        elapsed_time = 0.
-        while elapsed_time < self.print_time:
-            self.event_loop()
-            end_time = time.time()
-            elapsed_time = end_time - start_time
-        self.visualize_time = time.time()
 
