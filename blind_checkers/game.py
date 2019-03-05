@@ -48,7 +48,8 @@ class Checkers(object):
         self.player = -1
         self.selected_pos = None # a board location.
         self.hop = False
-        self.capture = False
+        self.capture_man = False
+        self.capture_king = False
         self.promotion = False
         self.move_count = 0
         self.last_matrices = []
@@ -59,7 +60,8 @@ class Checkers(object):
         self.player = -1
         self.selected_pos = None # a board location.
         self.hop = False
-        self.capture = False
+        self.capture_man = False
+        self.capture_king = False
         self.promotion = False
         self.move_count = 0
         self.last_matrices = []
@@ -81,9 +83,10 @@ class Checkers(object):
         end_turn() also checks for and game and resets a lot of class attributes.
         """
         self.board.remove_dead_pieces()
+        self.promotion = self.board.promote(self.to_pos)
         self.player = -self.player
 
-        if self.capture:  # or self.promotion:  # No reset for promotion.
+        if self.capture_man or self.capture_king:  # or self.promotion:  # No reset for promotion.
             self.move_count = 0
         else:
             self.move_count += 1
@@ -121,7 +124,7 @@ class Checkers(object):
             to_pos in self.board.get_legal_moves(from_pos, self.hop)): # error
             self.close()
             raise ValueError('Invalid action.')
-        self.hop, self.capture, self.promotion, rew = self.board.move_piece(from_pos, to_pos)
+        self.hop, self.capture_man, self.capture_king = self.board.move_piece(from_pos, to_pos)
         if not self.hop or self.board.get_legal_moves(to_pos, self.hop) == []:
             self.selected_pos = None
             prev_obs = self.last_matrices
@@ -138,8 +141,11 @@ class Checkers(object):
         if done > 0:
             self.player = -self.player  # victory player (or draw player) remains.
             player = -player
-        rew['win'] = done == 1
-        rew['draw'] = done == 2
+        rew = {'capture-man': self.capture_man,
+            'capture-king': self.capture_king,
+            'win': done == 1,
+            'draw': done == 2,
+            'promotion': self.promotion}
         info = {'prev-obs': prev_obs, 'move-count': self.move_count}
         return player, obs, moves, rew, done, info
 

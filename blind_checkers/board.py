@@ -238,40 +238,33 @@ class Board(object):
                     moves.append((pos, legal_moves))
         return moves
 
-    def move_piece(self, pos_start, pos_end):
+    def move_piece(self, from_pos, to_pos):
         """
-        Move a piece from (start_x, start_y) to (end_x, end_y).
+        Move a piece from (from_x, from_y) to (to_x, to_y).
         """
 
-        start_x, start_y = pos_start
-        end_x, end_y = pos_end
-        self.matrix[end_y, end_x] = self.matrix[start_y, start_x]
-        assert(abs(end_x - start_x) == abs(end_y - start_y))
-        range_x = np.arange(start_x, end_x, int(end_x > start_x) * 2 - 1)
-        range_y = np.arange(start_y, end_y, int(end_y > start_y) * 2 - 1)
-        self.matrix[start_y, start_x] = EMPTY
-        rew = {'capture_man': False,
-            'capture_king': False,
-            'promotion': False}
+        from_x, from_y = from_pos
+        to_x, to_y = to_pos
+        self.matrix[to_y, to_x] = self.matrix[from_y, from_x]
+        assert(abs(to_x - from_x) == abs(to_y - from_y))
+        range_x = np.arange(from_x, to_x, int(to_x > from_x) * 2 - 1)
+        range_y = np.arange(from_y, to_y, int(to_y > from_y) * 2 - 1)
+        self.matrix[from_y, from_x] = EMPTY
         move_spaces = self.matrix[range_y, range_x]
+        capture_man = False
+        capture_king = False
         if np.all(move_spaces == EMPTY):
             hop = False
-            capture = False
         else:
             if np.any(np.fabs(move_spaces) == DARK):
-                rew['capture_man'] = True
+                capture_man = True
             else:
                 assert(np.any(np.fabs(move_spaces) == DARK_KING))
-                rew['capture_king'] = True
+                capture_king = True
             move_spaces = np.sign(move_spaces) * DARK_DEAD
             self.matrix[range_y, range_x] = move_spaces
             hop = True
-            capture = True
-        promotion = self.king(pos_end)
-        if promotion: # promote, turn end
-            rew['promotion'] = True
-            hop = False
-        return hop, capture, promotion, rew
+        return hop, capture_man, capture_king
 
     def remove_dead_pieces(self):
         self.matrix[np.fabs(self.matrix) == DARK_DEAD] = EMPTY
@@ -281,7 +274,7 @@ class Board(object):
         x, y = pos
         return (0 <= x < self.rule.board_size) and (0 <= y < self.rule.board_size)
 
-    def king(self, pos):
+    def promote(self, pos):
         x, y = pos
         if self.matrix[y, x] == DARK and y == self.rule.board_size-1:
             self.matrix[y, x] = DARK_KING
