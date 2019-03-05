@@ -36,13 +36,13 @@ class Graphics(object):
 
         try:
             self.piece_size = int(self.square_size * PIECE_RATIO_IMAGE)
-            self.dark_piece = pygame.image.load(IMAGE_DARK)
+            self.dark_piece = pygame.image.load(IMAGE_DARK).convert_alpha()
             self.dark_piece = pygame.transform.scale(self.dark_piece, (self.piece_size, self.piece_size))
-            self.dark_king_piece = pygame.image.load(IMAGE_DARK_KING)
+            self.dark_king_piece = pygame.image.load(IMAGE_DARK_KING).convert_alpha()
             self.dark_king_piece = pygame.transform.scale(self.dark_king_piece, (self.piece_size, self.piece_size))
-            self.light_piece = pygame.image.load(IMAGE_LIGHT)
+            self.light_piece = pygame.image.load(IMAGE_LIGHT).convert_alpha()
             self.light_piece = pygame.transform.scale(self.light_piece, (self.piece_size, self.piece_size))
-            self.light_king_piece = pygame.image.load(IMAGE_LIGHT_KING)
+            self.light_king_piece = pygame.image.load(IMAGE_LIGHT_KING).convert_alpha()
             self.light_king_piece = pygame.transform.scale(self.light_king_piece, (self.piece_size, self.piece_size))
         except:
             self.piece_size = int(self.square_size * PIECE_RATIO_DRAW)
@@ -59,6 +59,15 @@ class Graphics(object):
             self.font = 'freesansbold.ttf'
 
         self.setup_window()
+
+    def blit_alpha(self, target, source, location, opacity):
+        x = location[0]
+        y = location[1]
+        temp = pygame.Surface((source.get_width(), source.get_height())).convert()
+        temp.blit(target, (-x, -y))
+        temp.blit(source, (0, 0))
+        temp.set_alpha(opacity)
+        target.blit(temp, location)
 
     def setup_window(self):
         """
@@ -127,6 +136,10 @@ class Graphics(object):
                 self.screen.blit(self.dark_king_piece, self.piece_coords((x, y)))
             elif matrix[y, x] == LIGHT_KING:
                 self.screen.blit(self.light_king_piece, self.piece_coords((x, y)))
+            elif matrix[y, x] == DARK_DEAD:
+                self.blit_alpha(self.screen, self.dark_piece, self.piece_coords((x, y)), DEAD_OPACITY)
+            elif matrix[y, x] == LIGHT_DEAD:
+                self.blit_alpha(self.screen, self.light_piece, self.piece_coords((x, y)), DEAD_OPACITY)
 
     def piece_coords(self, board_coords):
         pixel_coords = self.pixel_coords(board_coords)

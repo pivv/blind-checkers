@@ -112,17 +112,18 @@ class Board(object):
             if self.matrix[y, x] == EMPTY:
                 if capture_flag:
                     return True
-            elif player * self.matrix[y, x] < 0: # opponents
+            elif player * self.matrix[y, x] > 0 or abs(self.matrix[y, x]) == DARK_DEAD:  # same team or dead
+                break
+            else:
+                assert(player * self.matrix[y, x] < 0) # opponents
                 if capture_flag:
                     break
                 else:
                     capture_flag = True
-            else:
-                break
         return False
 
     def capture_available(self, player):
-        ys, xs = np.where(player * self.matrix > 0)
+        ys, xs = np.where(np.bitwise_and(player * self.matrix > 0, np.fabs(self.matrix) != DARK_DEAD))
         for x, y in zip(xs, ys):
             pos = (x, y)
             if abs(self.matrix[y, x]) == DARK:
@@ -154,20 +155,20 @@ class Board(object):
             if not self.on_board(move):
                 break
             sight_moves.append(move)
-            if player * self.matrix[y, x] < 0: # opponents
+            if player * self.matrix[y, x] > 0 or abs(self.matrix[y, x]) == DARK_DEAD:  # same team or dead
+                break_flag = True
+            elif player * self.matrix[y, x] < 0:  # opponents
                 if capture_flag:
                     break_flag = True
                 else:
                     capture_flag = True
-            elif player * self.matrix[y, x] > 0:
-                break_flag = True
         return sight_moves
 
     def get_sight_moves(self, pos):
         x, y = pos
         # We only call this function for king!
         assert(abs(self.matrix[y, x]) == DARK_KING)
-        player = int(self.matrix[y, x] > 0) * 2 - 1
+        player = np.sign(self.matrix[y, x])
         attack_range = self.rule.king_range
         sight_moves = []
         for move_index in range(4):
@@ -188,13 +189,14 @@ class Board(object):
             if self.matrix[y, x] == EMPTY:
                 if not hop or capture_flag:
                     legal_moves.append(move)
-            elif player * self.matrix[y, x] < 0: # opponents
+            elif player * self.matrix[y, x] > 0 or abs(self.matrix[y, x]) == DARK_DEAD:  # same team or dead
+                break
+            else:
+                assert(player * self.matrix[y, x] < 0) # opponents
                 if capture_flag:
                     break
                 else:
                     capture_flag = True
-            else:
-                break
         return legal_moves
 
     def get_legal_moves(self, pos, hop=False):
@@ -206,7 +208,7 @@ class Board(object):
         x, y = pos
         if self.matrix[y, x] == EMPTY:
             return []
-        player = int(self.matrix[y, x] > 0) * 2 - 1
+        player = np.sign(self.matrix[y, x])
         if abs(self.matrix[y, x]) == DARK:
             attack_range = 1
         else:
@@ -226,7 +228,7 @@ class Board(object):
     def get_all_legal_moves(self, player, hop=False, selected_pos=None):
         if self.rule.force_capture and self.capture_available(player):
             hop = True
-        ys, xs = np.where(player * self.matrix > 0)
+        ys, xs = np.where(np.bitwise_and(player * self.matrix > 0, np.fabs(self.matrix) != DARK_DEAD))
         moves = []
         for x, y in zip(xs, ys):
             pos = (x, y)
@@ -251,16 +253,18 @@ class Board(object):
         rew = {'capture_man': False,
             'capture_king': False,
             'promotion': False}
-        if np.all(self.matrix[range_y, range_x] == EMPTY):
+        move_spaces = self.matrix[range_y, range_x]
+        if np.all(move_spaces == EMPTY):
             hop = False
             capture = False
         else:
-            if np.any(np.fabs(self.matrix[range_y, range_x]) == DARK):
+            if np.any(np.fabs(move_spaces) == DARK):
                 rew['capture_man'] = True
             else:
-                assert(np.any(np.fabs(self.matrix[range_y, range_x]) == DARK_KING))
+                assert(np.any(np.fabs(move_spaces) == DARK_KING))
                 rew['capture_king'] = True
-            self.matrix[range_y, range_x] = EMPTY
+            move_spaces = np.sign(move_spaces) * DARK_DEAD
+            self.matrix[range_y, range_x] = move_spaces
             hop = True
             capture = True
         promotion = self.king(pos_end)
@@ -268,6 +272,10 @@ class Board(object):
             rew['promotion'] = True
             hop = False
         return hop, capture, promotion, rew
+
+    def remove_dead_pieces(self):
+        self.matrix[np.fabs(self.matrix) == DARK_DEAD] = EMPTY
+        return self.matrix
 
     def on_board(self, pos):
         x, y = pos

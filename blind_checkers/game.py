@@ -80,6 +80,7 @@ class Checkers(object):
         End the turn. Switches the current player.
         end_turn() also checks for and game and resets a lot of class attributes.
         """
+        self.board.remove_dead_pieces()
         self.player = -self.player
 
         if self.capture:  # or self.promotion:  # No reset for promotion.
