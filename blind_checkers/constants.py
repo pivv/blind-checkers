@@ -42,8 +42,9 @@ COLOR_HIGH2 = (160, 190, 255)  # color for highlighting valid pieces
 COLOR_BACKGROUND1 = (241, 235, 217)  # color for board
 COLOR_BACKGROUND2 = (234, 184, 82)  # color for board
 COLOR_DARK = (48, 48, 48)  # color for dark man
+COLOR_DARK_KING = (255, 215, 0)  # color for dark king
 COLOR_LIGHT = (247, 247, 247)  # color for light man
-COLOR_KING = (255, 215, 0)  # color for king
+COLOR_LIGHT_KING = (255, 0, 0)  # color for light man
 COLOR_BLIND = (0, 0, 0)  # color for invisible space
 COLOR_FONT = (255, 0, 0)  # color of font
 COLOR_FONT_SHADOW = (127, 127, 127)  # color of shadow of font
@@ -55,7 +56,7 @@ FPS = 60  # maximum frames per second.
 
 # Game constants
 DRAW_MOVE_COUNT = 40 * 2  # with this moves without capturing, it becomes draw.
-MIN_VISUALIZE_TIME = 0.5  # minimum time to visualize each board.
+MIN_VISUALIZE_TIME = 0.1  # minimum time to visualize each board.
 PRINT_TIME = 1.  # time duration to print the text (when game is started or ended.)
 
 # Main constants

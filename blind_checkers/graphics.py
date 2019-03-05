@@ -110,11 +110,13 @@ class Graphics(object):
         surface = pygame.Surface((self.piece_size, self.piece_size), pygame.SRCALPHA, 32)
         if player == 1:
             pygame.draw.circle(surface, COLOR_DARK, (self.piece_size//2, self.piece_size//2), self.piece_size//2)
+            if king:
+                pygame.draw.circle(surface, COLOR_DARK_KING, (self.piece_size//2, self.piece_size//2), self.piece_size//4)
         else:
             assert(player == -1)
             pygame.draw.circle(surface, COLOR_LIGHT, (self.piece_size//2, self.piece_size//2), self.piece_size//2)
-        if king:
-            pygame.draw.circle(surface, COLOR_KING, (self.piece_size//2, self.piece_size//2), self.piece_size//4)
+            if king:
+                pygame.draw.circle(surface, COLOR_LIGHT_KING, (self.piece_size//2, self.piece_size//2), self.piece_size//4)
         return surface
 
     def draw_blind_squares(self, matrix):
