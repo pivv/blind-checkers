@@ -35,6 +35,7 @@ class HumanAgent(Agent):
         pos_to_legal_moves = dict(moves)
         self.selected_pos = None
         self.selected_legal_moves = []
+        self.all_poses = [pos for pos, _ in moves]
         if len(moves) == 1:
             self.selected_pos, self.selected_legal_moves = moves[0]
         while True:
@@ -45,7 +46,7 @@ class HumanAgent(Agent):
 
     def update(self, matrix):
         """Calls on the graphics class to update the game display."""
-        self.graphics.update_display(matrix, self.selected_pos, self.selected_legal_moves)
+        self.graphics.update_display(matrix, self.selected_pos, self.selected_legal_moves, self.all_poses)
 
     def event_loop(self, pos_to_legal_moves):
         """
