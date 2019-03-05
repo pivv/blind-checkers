@@ -56,7 +56,7 @@ FPS = 60  # maximum frames per second.
 
 # Game constants
 DRAW_MOVE_COUNT = 40 * 2  # with this moves without capturing, it becomes draw.
-MIN_VISUALIZE_TIME = 0.1  # minimum time to visualize each board.
+MIN_VISUALIZE_TIME = 0.3  # minimum time to visualize each board.
 PRINT_TIME = 1.  # time duration to print the text (when game is started or ended.)
 
 # Main constants
