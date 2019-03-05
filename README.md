@@ -8,7 +8,7 @@
 
 The Blind Checkers is a variation of the Checkers. It is almost similar to international Checkers, except you cannot see all of your opponents. More precisely, each piece in Blind Checkers has own field of view, and you cannot see anything out of sight. Therefore, not only capturing opponent pieces but securing a broad view will be an important strategy.
 
-<img src="https://github.com/pivv/blind-checkers/blob/master/images/blind_checkers.PNG" width="500">
+<img src="https://github.com/pivv/blind-checkers/blob/master/images/image_blind_checkers.PNG" width="500">
 
 ## Rules
 
@@ -123,7 +123,7 @@ You can also create your own agent and compete it with existing agents. Especial
 
 You can use your own images for Checkers board or pieces by put them into the ``"blind_checkers/resources/"`` folder. (You can also change the font.) As an example, icons purchased from [iconfinder](https://www.iconfinder.com/icons/3813566/boardgames_checkers_draughts_games_king_crown_king_piece_monopoly_icon) are used as pieces.
 
-<img src="https://github.com/pivv/blind-checkers/blob/master/images/blind_checkers_customized.PNG" width="500">
+<img src="https://github.com/pivv/blind-checkers/blob/master/images/image_customized_blind_checkers.PNG" width="500">
 
 ## References
 
