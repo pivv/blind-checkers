@@ -80,14 +80,15 @@ class Graphics(object):
     def close_window(self):
         pygame.quit()
 
-    def update_display(self, matrix, pos, legal_moves):
+    def update_display(self, matrix, pos, legal_moves, all_poses):
         """
         This updates the current display.
         """
         self.screen.blit(self.background, (0,0))
 
         self.draw_blind_squares(matrix)
-        self.highlight_squares(pos, legal_moves)
+        self.highlight_squares(None, all_poses, COLOR_HIGH2)
+        self.highlight_squares(pos, legal_moves, COLOR_HIGH)
         self.draw_board_pieces(matrix)
 
         pygame.display.update()
@@ -160,17 +161,18 @@ class Graphics(object):
         pixel_x, pixel_y = pos
         return (pixel_x // self.square_size, pixel_y // self.square_size)
 
-    def highlight_squares(self, origin, squares):
+    def highlight_squares(self, origin, squares, color):
         """
         Squares is a list of board coordinates.
         highlight_squares highlights them.
         """
-        for square in squares:
-            pygame.draw.rect(self.screen, COLOR_HIGH,
-                (square[0] * self.square_size, square[1] * self.square_size, self.square_size, self.square_size))
+        if squares is not None:
+            for square in squares:
+                pygame.draw.rect(self.screen, color,
+                    (square[0] * self.square_size, square[1] * self.square_size, self.square_size, self.square_size))
 
-        if origin != None:
-            pygame.draw.rect(self.screen, COLOR_HIGH,
+        if origin is not None:
+            pygame.draw.rect(self.screen, color,
                 (origin[0] * self.square_size, origin[1] * self.square_size, self.square_size, self.square_size))
 
     def blur(self, amt):

@@ -152,17 +152,17 @@ class Checkers(object):
     def render_once(self):
         if self.visualize:
             if self.visualize_type == 'dark':
-                self.graphics.update_display(self.board.blind_board(1), None, [])
+                self.graphics.update_display(self.board.blind_board(1), None, [], None)
             elif self.visualize_type == 'light':
-                self.graphics.update_display(self.board.blind_board(-1), None, [])
+                self.graphics.update_display(self.board.blind_board(-1), None, [], None)
             elif self.visualize_type == 'both':
-                self.graphics.update_display(self.board.blind_board(self.player), None, [])
+                self.graphics.update_display(self.board.blind_board(self.player), None, [], None)
             else:
                 assert(self.visualize_type == 'no-blind')
                 if self.from_pos is not None:
-                    self.graphics.update_display(self.board.matrix, self.from_pos, [self.to_pos])
+                    self.graphics.update_display(self.board.matrix, self.from_pos, [self.to_pos], None)
                 else:
-                    self.graphics.update_display(self.board.matrix, None, [])
+                    self.graphics.update_display(self.board.matrix, None, [], None)
 
     def event_loop(self):
         for event in pygame.event.get():
