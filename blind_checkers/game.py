@@ -144,18 +144,19 @@ class Checkers(object):
         return player, obs, moves, rew, done, info
 
     def render_once(self):
-        if self.visualize_type == 'dark':
-            self.graphics.update_display(self.board.blind_board(1), None, [])
-        elif self.visualize_type == 'light':
-            self.graphics.update_display(self.board.blind_board(-1), None, [])
-        elif self.visualize_type == 'both':
-            self.graphics.update_display(self.board.blind_board(self.player), None, [])
-        else:
-            assert(self.visualize_type == 'no-blind')
-            if self.from_pos is not None:
-                self.graphics.update_display(self.board.matrix, self.from_pos, [self.to_pos])
+        if self.visualize:
+            if self.visualize_type == 'dark':
+                self.graphics.update_display(self.board.blind_board(1), None, [])
+            elif self.visualize_type == 'light':
+                self.graphics.update_display(self.board.blind_board(-1), None, [])
+            elif self.visualize_type == 'both':
+                self.graphics.update_display(self.board.blind_board(self.player), None, [])
             else:
-                self.graphics.update_display(self.board.matrix, None, [])
+                assert(self.visualize_type == 'no-blind')
+                if self.from_pos is not None:
+                    self.graphics.update_display(self.board.matrix, self.from_pos, [self.to_pos])
+                else:
+                    self.graphics.update_display(self.board.matrix, None, [])
 
     def event_loop(self):
         for event in pygame.event.get():
