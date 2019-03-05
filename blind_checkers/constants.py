@@ -13,7 +13,7 @@ RESOURCES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resour
 BOARD_SIZE = 10  # board size
 SIGHT = 2  # sight of man
 KING_SIGHT = 2  # sight of king
-KING_RANGE = 9  # attack range of king
+KING_RANGE = 2  # attack range of king
 FORCE_CAPTURE = True  # mandatory capture rule
 BACKWARD_CAPTURE = True  # backward capture rule
 
