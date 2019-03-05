@@ -13,7 +13,7 @@ RESOURCES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resour
 BOARD_SIZE = 10  # board size
 SIGHT = 2  # sight of man
 KING_SIGHT = 2  # sight of king
-KING_RANGE = 2  # attack range of king
+KING_RANGE = 9  # attack range of king
 FORCE_CAPTURE = True  # mandatory capture rule
 BACKWARD_CAPTURE = True  # backward capture rule
 
@@ -23,7 +23,9 @@ DARK = 1  # encoding of dark man
 LIGHT = -1  # encoding of light man
 DARK_KING = 2  # encoding of dark king
 LIGHT_KING = -2  # encoding of light king
-BLIND = 3  # encoding of invisible space
+DARK_DEAD = 3  # encoding of dead dark piece
+LIGHT_DEAD = -3  # encoding of dead light piece
+BLIND = 4  # encoding of invisible space
 
 # Graphics constants
 CAPTION = 'Blind Checkers'  # title of the pygame program
@@ -33,6 +35,7 @@ IMAGE_DARK = os.path.join(RESOURCES_DIR, 'dark_man.png')  # dark man image
 IMAGE_DARK_KING = os.path.join(RESOURCES_DIR, 'dark_king.png')  # dark king image
 IMAGE_LIGHT = os.path.join(RESOURCES_DIR, 'light_man.png')  # light man image
 IMAGE_LIGHT_KING = os.path.join(RESOURCES_DIR, 'light_king.png')  # light king image
+DEAD_OPACITY = 128 # opacity of dead pieces
 FONT = os.path.join(RESOURCES_DIR, 'font.ttf')  # font
 COLOR_HIGH = (160, 190, 255)  # color for highlighting
 COLOR_BACKGROUND1 = (241, 235, 217)  # color for board
@@ -51,7 +54,7 @@ FPS = 60  # maximum frames per second.
 
 # Game constants
 DRAW_MOVE_COUNT = 40 * 2  # with this moves without capturing, it becomes draw.
-MIN_VISUALIZE_TIME = 0.1  # minimum time to visualize each board.
+MIN_VISUALIZE_TIME = 0.5  # minimum time to visualize each board.
 PRINT_TIME = 1.  # time duration to print the text (when game is started or ended.)
 
 # Main constants
