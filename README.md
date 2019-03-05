@@ -20,7 +20,7 @@ You can adjust all of the detailed rules by modifying the constants.
 * Mandatory capture if possible
 * Men can capture backwards
 
-In practice, the attack range of kings is limited since flying kings are too strong in Blind Checkers. Also, for easy implementation, any captured pieces are removed from the board immediately, unlike the international rules in which removal is done after one turn is over. Finally, since you cannot see all board in Blind Checkers, the "threefold repetition" rule is excluded. The "fourty-move" rule is implemented, but as you may not know opponent's promotion, a draw is declared if there was no capture during last fourty moves for both players.
+In practice, the attack range of kings is limited since flying kings are too strong in Blind Checkers. As in international rules, removal of captured pices is done after one turn is all over. But unlike international rules, you can choose any sequence of capture since you cannot see all path before capturing. Finally, since you cannot see all board in Blind Checkers, the "threefold repetition" rule is excluded. The "fourty-move" rule is implemented, but as you may not know opponent's promotion, a draw is declared if there was no capture during last fourty moves for both players.
 
 ## Usage
 
@@ -121,7 +121,7 @@ You can also create your own agent and compete it with existing agents. Especial
 
 ## Resources
 
-You can use your own images for Checkers board or pieces by put them into the ``"blind_checkers/resources/"`` folder. As an example, icons purchased from [iconfinder](https://www.iconfinder.com/icons/3813566/boardgames_checkers_draughts_games_king_crown_king_piece_monopoly_icon) are used as pieces.
+You can use your own images for Checkers board or pieces by put them into the ``"blind_checkers/resources/"`` folder. (You can also change the font.) As an example, icons purchased from [iconfinder](https://www.iconfinder.com/icons/3813566/boardgames_checkers_draughts_games_king_crown_king_piece_monopoly_icon) are used as pieces.
 
 <img src="https://github.com/pivv/blind-checkers/blob/master/images/blind_checkers_customized.PNG" width="500">
 
