@@ -186,6 +186,7 @@ class Checkers(object):
 
     def print(self, message, font_size=None, color=None):
         if self.visualize:
+            self.render_once()
             self.graphics.draw_message(message, font_size, color)
             start_time = time.time()
             elapsed_time = 0.
