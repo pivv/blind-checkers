@@ -46,9 +46,8 @@ class GreedyAgent(Agent):
                 for _ in range(self.num_simulation):
                     matrix = np.copy(obs)
                     matrix[matrix == BLIND] = EMPTY
-                    temp_board = Board(self.rule, matrix)
-                    temp_env = Checkers(self.rule, board=temp_board)
-                    temp_env.player = self.player
+                    temp_env = Checkers(self.rule)
+                    temp_env.reset(self.player, matrix)
                     temp_env.move_count = info['move-count']
                     action = (from_pos, to_pos)
                     for _ in range(self.future_count):
@@ -59,7 +58,7 @@ class GreedyAgent(Agent):
                             break
                         action = self.sub_agent.act(temp_obs, temp_moves, temp_info)
                     del temp_env
-                    del temp_board
+                    del matrix
                 score /= self.num_simulation
                 scores.append(score)
                 actions.append((from_pos, to_pos))
