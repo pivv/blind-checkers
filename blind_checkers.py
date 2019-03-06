@@ -41,8 +41,19 @@ for agent_dir, _, agent_name_with_exts in os.walk(agent_root):
                     locals()[k] = getattr(module, k)
 
 
-def log_pdn(_log_dir, _pdn, _dark_name, _light_name, _round_number):
-    log_name = 'round_{}_{}_vs_{}.txt'.format(str(_round_number).zfill(5), _dark_name, _light_name)
+def log_pdn(_log_dir, _pdn, _dark_name, _light_name, _round_number, _player, _done):
+    dark_result_symbol, light_result_symbol = '*', '*'
+    if _done > 0:  # game is ended.
+        if _done == 2:  # draw
+            dark_result_symbol, light_result_symbol = 'D', 'D'
+        else:
+            assert(_done == 1)  # victory
+            if _player == 1:
+                dark_result_symbol, light_result_symbol = 'W', 'L'
+            else:
+                dark_result_symbol, light_result_symbol = 'L', 'W'
+    log_name = 'round_{}_{}({})_vs_{}({}).txt'.format(str(_round_number).zfill(5),
+        _dark_name, dark_result_symbol, _light_name, light_result_symbol)
     with open(os.path.join(_log_dir, log_name), 'w') as f:
         f.write(_pdn)
 
@@ -114,7 +125,7 @@ def arena(_env, _agent_dark, _agent_light, _round_number=1, _log_dir='./'):
                 assert(_done == 1)
                 _env.print("{} Win".format(current_agent), font_size=56)
 
-    log_pdn(_log_dir, _env.get_pdn(), _agent_dark.name, _agent_light.name, round_number)
+    log_pdn(_log_dir, _env.get_pdn(), _agent_dark.name, _agent_light.name, _round_number, _player, _done)
 
     return _player, _done
 
