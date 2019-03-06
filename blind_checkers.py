@@ -53,7 +53,12 @@ def arena(_env, _agent_dark, _agent_light):
             assert(player == -1)
             current_agent = _agent_light
 
+        start_time = time.time()
         action = current_agent.act(obs, moves, info)
+        end_time = time.time()
+        if current_agent.name[:5] != 'Human' and end_time - start_time > ACTION_TIMEOUT:  # timeout, using random agent
+            timeout_agent = RandomAgent(current_agent.player, current_agent.rule)
+            action = timeout_agent.act(obs, moves, info)
         player, obs, moves, rew, done, info = _env.step(action)
         current_agent.consume(rew)
 
@@ -115,6 +120,9 @@ if __name__ == '__main__':
                         light_win_count += 1
                 env.print("Dark : Light : Draw\n{} : {} : {}".format(dark_win_count, light_win_count, draw_count), font_size=56)
 
+        del agent_dark
+        del agent_light
+
     else:  # implementation of league matches
         env.visualize_type = 'no-blind'  # Force the type of visualization to observer mode.
         assert('Human' not in LEAGUE_AGENTS)  # AI league is implemented.
@@ -125,12 +133,17 @@ if __name__ == '__main__':
                     continue
                 agent_dark = globals()[AGENT_DARK + 'Agent'](1, rule)
                 agent_light = globals()[AGENT_LIGHT + 'Agent'](-1, rule)
+
                 player, done = arena(env, agent_dark, agent_light)
+
                 if done == 2:  # draw
                     record_table[iagent_dark, iagent_light] = 2  # 2 for draw
                 else:
                     assert(done == 1)  # victory
                     record_table[iagent_dark, iagent_light] = player  # who wins?
+
+                del agent_dark
+                del agent_light
 
         # Final points
         points = np.zeros((len(LEAGUE_AGENTS),), dtype='int')
@@ -139,6 +152,8 @@ if __name__ == '__main__':
                 0 * (np.sum(record_table[iagent, :] == -1) + np.sum(record_table[:, iagent] == 1)) +  # 0 point for lose
                 1 * (np.sum(record_table[iagent, :] == 2) + np.sum(record_table[:, iagent] == 2)))  # 1 point for draw
         sorted_agents = [LEAGUE_AGENTS[iagent] for iagent in np.argsort(np.argsort(-points))]
+
+        # This is the function for scoring the term project, so use built-in print function.
         print(record_table)
         print(points)
         print(sorted_agents)
