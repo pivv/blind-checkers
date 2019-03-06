@@ -19,12 +19,8 @@ from ..agent import Agent
 
 class RandomAgent(Agent):
     def __init__(self, player, rule):
-        if player == 1:
-            name = 'Random_Dark'
-        else:
-            assert(player == -1)
-            name = 'Random_Light'
-        super(RandomAgent, self).__init__(name, player, rule)
+        base_name = 'Random'
+        super(RandomAgent, self).__init__(base_name, player, rule)
 
     def act(self, obs, moves, info):
         random_index1 = int(np.random.random_sample() * len(moves))
