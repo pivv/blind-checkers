@@ -111,7 +111,7 @@ env.close()
 
 ## Agents
 
-Each agent plays the Checkers game. In this repository three types of basic agents are provided: [HumanAgent](https://github.com/pivv/blind-checkers/blob/master/blind_checkers/agents/Human/agent.py), [RandomAgent](https://github.com/pivv/blind-checkers/blob/master/blind_checkers/agents/Random/agent.py), and [GreedyAgent](https://github.com/pivv/blind-checkers/blob/master/blind_checkers/agents/Greedy/agent.py).
+Each agent plays the Checkers game though ``act`` and ``consume`` functions. In this repository three types of basic agents are provided: [HumanAgent](https://github.com/pivv/blind-checkers/blob/master/blind_checkers/agents/Human/agent.py), [RandomAgent](https://github.com/pivv/blind-checkers/blob/master/blind_checkers/agents/Random/agent.py), and [GreedyAgent](https://github.com/pivv/blind-checkers/blob/master/blind_checkers/agents/Greedy/agent.py).
 
 * ``HumanAgent`` is the agent that leaves choice to a person. This agent is not limited in ability!
 * ``RandomAgent`` is the agent that performs randomly among the available actions.
