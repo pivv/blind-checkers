@@ -15,7 +15,7 @@ The Blind Checkers is a variation of the Checkers. It is almost similar to inter
 You can adjust all of the detailed rules by modifying the constants.
 
 * 10x10 Checkers board
-* Two spaces of view for both men and kings (It means that 5x5 box centered at each piece is visible.)
+* Two spaces of view for both men and kings (It means that 5x5 box centered at each piece is visible. 9 corresponds to regular Checkers game.)
 * Three spaces of attack range for kings (Additional view for attack range is provided. If this parameter is set to 9(1), it corresponds to (no) flying kings rule.)
 * Mandatory capture if possible
 * Men can capture backwards
