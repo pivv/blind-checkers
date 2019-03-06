@@ -195,6 +195,24 @@ class Graphics(object):
         pygame.display.update()
         self.clock.tick(FPS)
 
+    def render_multiple_lines(self, font_obj, text, antialias, color, background=None):
+        font_size = font_obj.get_height()
+        newline_size = font_size // 5
+        lines = text.splitlines()
+        text_surface_objs = []
+        text_rect_objs = []
+        for line in lines:
+            text_surface_obj = font_obj.render(text, antialias, color, background)
+            text_surface_objs.append(text_surface_obj)
+            text_rect_objs.append(text_surface_obj.get_rect())
+        surface = pygame.Surface((max(text_surface_obj.get_width() for text_surface_obj in text_surface_objs),
+            len(lines) * font_size + (len(lines)-1) * newline_size), pygame.SRCALPHA, 32)
+        for (iline, text_surface_obj), text_rect_obj in zip(enumerate(text_surface_objs), text_rect_objs):
+            offset = int((iline - (len(lines) - 1.) / 2.) * (font_size + newline_size))
+            text_rect_obj.center = (surface.get_width()//2, surface.get_height()//2 + offset)
+            surface.blit(text_surface_obj, text_rect_obj)
+        return surface
+
     def draw_message(self, message, font_size=None, color=None):
         """
         Draws message to the screen.
@@ -205,8 +223,8 @@ class Graphics(object):
             color = COLOR_FONT
         shadow_offset = 1 + (font_size // 15)
         font_obj = pygame.font.Font(self.font, font_size)
-        shadow_surface_obj = font_obj.render(message, True, COLOR_FONT_SHADOW)
-        text_surface_obj = font_obj.render(message, True, color)
+        shadow_surface_obj = self.render_multiple_lines(font_obj, message, True, COLOR_FONT_SHADOW)
+        text_surface_obj = self.render_multiple_lines(font_obj, message, True, color)
         text_rect_obj = text_surface_obj.get_rect()
         text_rect_obj.center = (self.window_size // 2, self.window_size // 2)
         self.blur(BLUR_AMOUNT)
