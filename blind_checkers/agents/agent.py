@@ -15,7 +15,12 @@ from abc import abstractmethod
 
 class Agent(ABC):
     @abstractmethod
-    def __init__(self, name, player, rule):
+    def __init__(self, base_name, player, rule):
+        if player == 1:
+            name = base_name + '-Dark'
+        else:
+            assert(player == -1)
+            name = base_name + '-Light'
         self.name = name
         self.player = player
         self.rule = rule
