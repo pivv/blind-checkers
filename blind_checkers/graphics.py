@@ -202,7 +202,7 @@ class Graphics(object):
         text_surface_objs = []
         text_rect_objs = []
         for line in lines:
-            text_surface_obj = font_obj.render(text, antialias, color, background)
+            text_surface_obj = font_obj.render(line, antialias, color, background)
             text_surface_objs.append(text_surface_obj)
             text_rect_objs.append(text_surface_obj.get_rect())
         surface = pygame.Surface((max(text_surface_obj.get_width() for text_surface_obj in text_surface_objs),
