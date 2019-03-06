@@ -52,7 +52,7 @@ def log_pdn(_log_dir, _pdn, _dark_name, _light_name, _round_number, _player, _do
                 dark_result_symbol, light_result_symbol = 'W', 'L'
             else:
                 dark_result_symbol, light_result_symbol = 'L', 'W'
-    log_name = 'round{}_{}({})vs{}({}).txt'.format(str(_round_number).zfill(5),
+    log_name = '{}_{}({})vs{}({}).txt'.format(str(_round_number).zfill(5),
         _dark_name, dark_result_symbol, _light_name, light_result_symbol)
     with open(os.path.join(_log_dir, log_name), 'w') as f:
         f.write(_pdn)
