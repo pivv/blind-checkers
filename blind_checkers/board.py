@@ -22,7 +22,7 @@ class Board(object):
 
     def init_board(self):
         # initialize squares and place them in matrix
-        matrix = np.zeros((self.rule.board_size, self.rule.board_size), dtype='int')
+        matrix = EMPTY * np.ones((self.rule.board_size, self.rule.board_size), dtype='int')
         for x in range(self.rule.board_size):
             for y in range(self.rule.board_size):
                 if ((x % 2 != 0) and (y % 2 == 0)) or ((x % 2 == 0) and (y % 2 != 0)):
@@ -283,3 +283,18 @@ class Board(object):
             self.matrix[y, x] = LIGHT_KING
             return True
         return False
+
+    def pos_to_board_number(self, pos):
+        return (pos[1]*self.rule.board_size + pos[0]) // 2 + 1
+
+    def board_number_to_pos(self, board_number):
+        full_board_number = (board_number - 1) * 2
+        x = full_board_number % self.rule.board_size
+        y = full_board_number // self.rule.board_size
+        if (x+y)%2 == 1:
+            return (x, y)
+        else:
+            full_board_number = (board_number - 1) * 2 + 1
+            x = full_board_number % self.rule.board_size
+            y = full_board_number // self.rule.board_size
+            return (x, y)

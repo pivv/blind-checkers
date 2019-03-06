@@ -60,11 +60,12 @@ MIN_VISUALIZE_TIME = 0.3  # minimum time to visualize each board.
 PRINT_TIME = 1.  # time duration to print the text (when game is started or ended.)
 
 # Main constants
-REPEAT_EPISODES = True
-VISUALIZE = True
+PLAY_MODE = 'match'  # one of 'match', 'league', and 'replay'.
+ACTION_TIMEOUT = 5.  # maximum amount of time to think
+REPEAT_EPISODES = True  # whether to repeat episodes.
+VISUALIZE = True  # visualize
 VISUALIZE_TYPE = 'light'  # one of 'dark', 'light', 'both', and 'no-blind'.
 AGENT_DARK = 'Greedy'  # one of 'Human', 'Random', 'Greedy'.
 AGENT_LIGHT = 'Human'  # one of 'Human', 'Random', 'Greedy'.
-LEAGUE = False
-LEAGUE_AGENTS = ['Greedy', 'Random']
-ACTION_TIMEOUT = 5.  # maximum amount of time to think
+LEAGUE_AGENTS = ['Greedy', 'Random', 'Greedy', 'Random']  # which agents to participate league.
+REPLAY_NAME = '20190307052518/round_00005_Random-Dark_vs_Greedy-Light.txt'  # name of file to replay.
