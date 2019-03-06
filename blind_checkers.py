@@ -11,6 +11,8 @@ import numpy as np
 
 import time
 
+import datetime
+
 from blind_checkers.constants import *
 from blind_checkers.rule import Rule
 from blind_checkers.board import Board
@@ -39,39 +41,82 @@ for agent_dir, _, agent_name_with_exts in os.walk(agent_root):
                     locals()[k] = getattr(module, k)
 
 
-def arena(_env, _agent_dark, _agent_light):
-    player, obs, moves, info = _env.reset()
-    _env.print("{}\nvs\n{}".format(_agent_dark, _agent_light), font_size=56)
+def log_pdn(_log_dir, _pdn, _dark_name, _light_name, _round_number):
+    log_name = 'round_{}_{}_vs_{}.txt'.format(str(_round_number).zfill(5), _dark_name, _light_name)
+    with open(os.path.join(_log_dir, log_name), 'w') as f:
+        f.write(_pdn)
+
+
+def replay(_env, _pdn):
+    _dark_name, _light_name, _round_number, _player, _matrix, _actions = _env.decode_pdn(_pdn)
+
+    _player, _obs, _moves, _info = _env.reset(_player, _matrix)
+    _done = 0
+
+    _env.print("Round {}".format(_round_number), font_size=72)
+    _env.print("{}\nvs\n{}".format(_dark_name, _light_name), font_size=56)
     _env.print("Game Start!", font_size=72)
-    done = 0
 
     # Main loop.
-    while done == 0:
-        if player == 1:
+    for _action in _actions:
+        if _player == 1:
+            current_name = _dark_name
+        else:
+            assert(_player == -1)
+            current_name = _light_name
+
+        _player, _obs, _moves, _rew, _done, _info = _env.step(_action)
+        _env.render()
+
+        if _done > 0:  # game is ended.
+            if _done == 2:  # draw
+                _env.print("Draw", font_size=56)
+            else:
+                assert(_done == 1)
+                _env.print("{} Win".format(current_name), font_size=56)
+
+    return _player, _done
+
+
+def arena(_env, _agent_dark, _agent_light, _round_number=1, _log_dir='./'):
+    _player, _obs, _moves, _info = _env.reset()
+    _env.reset_pdn(_agent_dark.name, _agent_light.name, _round_number)
+    _done = 0
+
+    _env.print("Round {}".format(_round_number), font_size=72)
+    _env.print("{}\nvs\n{}".format(_agent_dark, _agent_light), font_size=56)
+    _env.print("Game Start!", font_size=72)
+
+    # Main loop.
+    while _done == 0:
+        if _player == 1:
             current_agent = _agent_dark
         else:
-            assert(player == -1)
+            assert(_player == -1)
             current_agent = _agent_light
 
         start_time = time.time()
-        action = current_agent.act(obs, moves, info)
+        _action = current_agent.act(_obs, _moves, _info)
         end_time = time.time()
         if current_agent.name[:5] != 'Human' and end_time - start_time > ACTION_TIMEOUT:  # timeout, using random agent
             timeout_agent = RandomAgent(current_agent.player, current_agent.rule)
-            action = timeout_agent.act(obs, moves, info)
-        player, obs, moves, rew, done, info = _env.step(action)
-        current_agent.consume(rew)
+            _action = timeout_agent.act(_obs, _moves, _info)
+        _player, _obs, _moves, _rew, _done, _info = _env.step(_action)
+        _env.step_pdn()
+        current_agent.consume(_rew)
 
         _env.render()
 
-        if done > 0:  # game is ended.
-            if done == 2:  # draw
+        if _done > 0:  # game is ended.
+            if _done == 2:  # draw
                 _env.print("Draw", font_size=56)
             else:
-                assert(done == 1)
+                assert(_done == 1)
                 _env.print("{} Win".format(current_agent), font_size=56)
 
-    return player, done
+    log_pdn(_log_dir, _env.get_pdn(), _agent_dark.name, _agent_light.name, round_number)
+
+    return _player, _done
 
 
 if __name__ == '__main__':
@@ -92,8 +137,12 @@ if __name__ == '__main__':
     # agent_light = GreedyAgent(-1, rule)
 
     env = Checkers(rule, graphics=graphics, visualize=VISUALIZE, visualize_type=VISUALIZE_TYPE)
+    base_log_dir = './logs/'
+    log_dir = os.path.join(base_log_dir, f"{datetime.datetime.now():%Y%m%d%H%M%S}")
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
 
-    if not LEAGUE:
+    if PLAY_MODE == 'match':
         if AGENT_DARK == 'Human':
             agent_dark = globals()[AGENT_DARK + 'Agent'](1, rule, graphics)
         else:
@@ -103,9 +152,10 @@ if __name__ == '__main__':
         else:
             agent_light = globals()[AGENT_LIGHT + 'Agent'](-1, rule)
 
-        dark_win_count, light_win_count, draw_count = 0, 0, 0
+        round_number, dark_win_count, light_win_count, draw_count = 0, 0, 0, 0
         while True:
-            player, done = arena(env, agent_dark, agent_light)
+            round_number += 1
+            player, done = arena(env, agent_dark, agent_light, round_number, log_dir)
 
             if not REPEAT_EPISODES:
                 break
@@ -118,15 +168,16 @@ if __name__ == '__main__':
                         dark_win_count += 1
                     else:
                         light_win_count += 1
-                env.print("Dark : Light : Draw\n{} : {} : {}".format(dark_win_count, light_win_count, draw_count), font_size=56)
+                env.print("Light : Dark : Draw\n{} : {} : {}".format(light_win_count, dark_win_count, draw_count), font_size=56)
 
         del agent_dark
         del agent_light
 
-    else:  # implementation of league matches
+    elif PLAY_MODE == 'league':  # implementation of league matches
         env.visualize_type = 'no-blind'  # Force the type of visualization to observer mode.
         assert('Human' not in LEAGUE_AGENTS)  # AI league is implemented.
         record_table = np.zeros((len(LEAGUE_AGENTS), len(LEAGUE_AGENTS)), dtype='int')
+        round_number = 0
         for iagent_dark, AGENT_DARK in enumerate(LEAGUE_AGENTS):
             for iagent_light, AGENT_LIGHT in enumerate(LEAGUE_AGENTS):
                 if iagent_dark == iagent_light:  # same player
@@ -134,7 +185,8 @@ if __name__ == '__main__':
                 agent_dark = globals()[AGENT_DARK + 'Agent'](1, rule)
                 agent_light = globals()[AGENT_LIGHT + 'Agent'](-1, rule)
 
-                player, done = arena(env, agent_dark, agent_light)
+                round_number += 1
+                player, done = arena(env, agent_dark, agent_light, round_number, log_dir)
 
                 if done == 2:  # draw
                     record_table[iagent_dark, iagent_light] = 2  # 2 for draw
@@ -157,5 +209,14 @@ if __name__ == '__main__':
         print(record_table)
         print(points)
         print(sorted_agents)
+
+    elif PLAY_MODE == 'replay':  # replay mode
+        pdn_path = os.path.join(base_log_dir, REPLAY_NAME)
+        with open(pdn_path, 'r') as f:
+            pdn = f.read()
+        player, done = replay(env, pdn)
+
+    else:
+        raise ValueError('Invalid play mode: %s.' % PLAY_MODE)
 
     env.close()
