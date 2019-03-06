@@ -20,15 +20,11 @@ from ..Random.agent import RandomAgent
 
 class GreedyAgent(Agent):
     def __init__(self, player, rule, future_count=4, num_simulation=5):
-        if player == 1:
-            name = 'Greedy_Dark'
-        else:
-            assert(player == -1)
-            name = 'Greedy_Light'
+        base_name = 'Greedy'
         self.future_count = future_count
         self.num_simulation = num_simulation
         self.sub_agent = RandomAgent(1, rule) # no player specified.
-        super(GreedyAgent, self).__init__(name, player, rule)
+        super(GreedyAgent, self).__init__(base_name, player, rule)
 
     def compute_reward(self, last_player, rew):
         r = 0.
