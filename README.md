@@ -20,7 +20,7 @@ You can adjust all of the detailed rules by modifying ``"blind_checkers/constant
 * Mandatory capture if possible
 * Men can capture backwards
 
-In practice, the attack range of kings is limited since flying kings are too strong in Blind Checkers. As in the international rules, removal of captured pices is done after one turn is all over. But unlike the international rules, you can choose any sequence of capture since you cannot see all path before capturing. Finally, since you cannot see all board in Blind Checkers, the "threefold repetition" rule is excluded. The "fourty-move" rule is implemented, but as you may not know opponent's promotion, a draw is declared if there was no capture during last fourty moves for both players.
+In practice, the attack range of kings is limited since flying kings are too strong in Blind Checkers. As in the international rules, removal of captured pices is done after one turn is all over. But unlike the international rules, you can choose any sequence of capture since you cannot see all path before capturing. Finally, since you cannot see all board in Blind Checkers, the "threefold repetition" rule is excluded. The "fourty-move" rule is implemented, but as you may not know opponent's promotion, promotion doesn't reset the draw count.
 
 ## Usage
 
