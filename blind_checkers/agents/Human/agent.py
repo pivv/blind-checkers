@@ -22,13 +22,9 @@ from ..agent import Agent
 
 class HumanAgent(Agent):
     def __init__(self, player, rule, graphics):
-        if player == 1:
-            name = 'Human_Dark'
-        else:
-            assert(player == -1)
-            name = 'Human_Light'
+        base_name = 'Human'
         self.graphics = graphics
-        super(HumanAgent, self).__init__(name, player, rule)
+        super(HumanAgent, self).__init__(base_name, player, rule)
 
     def act(self, obs, moves, info):
         matrix = obs
