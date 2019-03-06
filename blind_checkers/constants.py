@@ -65,3 +65,5 @@ VISUALIZE = True
 VISUALIZE_TYPE = 'light'  # one of 'dark', 'light', 'both', and 'no-blind'.
 AGENT_DARK = 'Greedy'  # one of 'Human', 'Random', 'Greedy'.
 AGENT_LIGHT = 'Human'  # one of 'Human', 'Random', 'Greedy'.
+LEAGUE = False
+LEAGUE_AGENTS = ['Greedy', 'Random']
