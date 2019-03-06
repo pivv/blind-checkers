@@ -67,3 +67,4 @@ AGENT_DARK = 'Greedy'  # one of 'Human', 'Random', 'Greedy'.
 AGENT_LIGHT = 'Human'  # one of 'Human', 'Random', 'Greedy'.
 LEAGUE = False
 LEAGUE_AGENTS = ['Greedy', 'Random']
+ACTION_TIMEOUT = 5.  # maximum amount of time to think
