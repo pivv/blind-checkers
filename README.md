@@ -119,6 +119,10 @@ Each agent plays the Checkers game though ``act`` and ``consume`` functions. In 
 
 You can also create your own agent and compete it with existing agents. Especially using deep reinforcement learning to create agents is the goal of the term project.
 
+## Play mode
+
+Now various play modes are available! By setting ``PLAY_MODE`` parameter defined in ``"blind_checkers/constants.py"``, you can choose the play mode among ``"match"``, ``"league"``, and ``"replay"``. Regular ``"match"`` mode provides AI vs AI, AI vs person, and person vs person matches. In ``"league"`` mode, various AIs are competing in full league. Finally, in ``"replay"`` mode, you can see the replay of previous match which was automatically saved.
+
 ## Resources
 
 You can use your own images for Checkers board or pieces by put them into the ``"blind_checkers/resources/"`` folder. (You can also change the font.) As an example, icons purchased from [iconfinder](https://www.iconfinder.com/icons/3813566/boardgames_checkers_draughts_games_king_crown_king_piece_monopoly_icon) are used as pieces.
