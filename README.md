@@ -12,7 +12,7 @@ The Blind Checkers is a variation of the Checkers. It is almost similar to inter
 
 ## Rules
 
-You can adjust all of the detailed rules by modifying the constants.
+You can adjust all of the detailed rules by modifying ``"blind_checkers/constants.py"``.
 
 * 10x10 Checkers board
 * Two spaces of view for both men and kings (It means that 5x5 box centered at each piece is visible. Setting this paraeter to 9 corresponds to the regular Checkers game.)
