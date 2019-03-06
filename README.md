@@ -107,7 +107,7 @@ env.close()
 * ``moves`` is the collection of all legal moves. It is a ``list`` of ``(from_pos, legal_moves)`` where ``legal_moves`` is again a ``list`` of multiple ``to_pos`` which is valid to arrive on departure from ``from_pos``. So, you should choose ``action`` among ``moves``.
 * ``rew`` contains the information related to reward during last movement. ``rew["capture-man"]``(``rew["capture-king"]``) stores whether you captured opponent man(king) in last move, ``rew["promotion"]`` stores whether your uncrowned piece promoted to king in last move, and ``rew["win"]``(``rew["draw"]``) stores whether the game is ended with your victory(draw). You can use this to create your own reward. (For example, see ``GreedyAgent``.)
 * ``done`` let you know whether the game is over. ``0`` means game is not over yet, ``1`` means ``player`` wins, and ``2`` means draw.
-* ``info`` contains additional information of the game. ``info["prev-obs"]`` contains the previous observations during opponent's turn. ``info["move-count"]`` contains the count of previous moves without capture and promotion. If this count reach to 80, It becomes draw.
+* ``info`` contains additional information of the game. ``info["prev-obs"]`` contains the previous observations during opponent's turn. ``info["move-count"]`` contains the count of previous moves without capture and promotion. If this count reach to 80, it becomes draw.
 
 ## Agents
 
