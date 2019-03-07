@@ -121,7 +121,7 @@ You can also create your own agent and compete it with existing agents. Especial
 
 ## Play mode
 
-Now various play modes are available! By setting ``PLAY_MODE`` parameter defined in ``"blind_checkers/constants.py"``, you can choose the play mode among ``"match"``, ``"league"``, and ``"replay"``. Regular ``"match"`` mode provides AI vs AI, AI vs person, and person vs person matches. In ``"league"`` mode, various AIs are competing in full league. Finally, in ``"replay"`` mode, you can see the replay of previous match which was automatically saved as "Portable Draughts Notation".
+Now various play modes are available! By setting ``PLAY_MODE`` parameter defined in ``"blind_checkers/constants.py"``, you can choose the play mode among ``"match"``, ``"league"``, and ``"replay"``. Regular ``"match"`` mode provides AI vs AI, AI vs person, and person vs person matches. In ``"league"`` mode, various AIs are competing in full league. Finally, in ``"replay"`` mode, you can see the replay of previous match which was automatically saved in the format of "Portable Draughts Notation".
 
 ## Resources
 
